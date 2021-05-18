@@ -1,6 +1,6 @@
 import dishCardsTpl from "./templates/dish-cards.hbs";
 import menu from "./menu.json";
-
+console.log(dishCardsTpl)
 const Theme = {
   LIGHT: 'light-theme',
   DARK: 'dark-theme',
