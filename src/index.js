@@ -1,6 +1,6 @@
 import dishCardsTpl from "./templates/dish-cards.hbs";
 import menu from "./menu.json";
-console.log(dishCardsTpl)
+
 const Theme = {
   LIGHT: 'light-theme',
   DARK: 'dark-theme',
@@ -14,32 +14,29 @@ const refs = {
 
 const createDishCards = menu => refs.menu.insertAdjacentHTML('beforeend', dishCardsTpl(menu));
 
-const makedMenu = createDishCards(menu);
+createDishCards(menu);
 
-const themeData = {};
+let themeData = '';
 const onChangeTheme = () => {
     if (refs.checkbox.checked) {
-        themeData.Theme = Theme.DARK;
-        themeData.checked = true;
+        themeData = Theme.DARK;
         document.body.classList.remove(Theme.LIGHT);
         document.body.classList.add(Theme.DARK);
     }
     else {
-        themeData.Theme = Theme.LIGHT;
-        themeData.checked = false;
+        themeData = Theme.LIGHT;
         document.body.classList.replace(Theme.DARK, Theme.LIGHT);
     };
 
-    localStorage.setItem('theme', JSON.stringify(themeData));  
+    localStorage.setItem('theme', themeData);  
 };
 
 const savedTheme = () => {
     const currentTheme = localStorage.getItem('theme');
-    const currentThemeParse = JSON.parse(currentTheme);
 
-    if (currentTheme) {
-        document.body.classList.add(currentThemeParse.Theme);
-        refs.checkbox.checked = currentThemeParse.checked;
+    if (currentTheme === Theme.DARK) {
+        document.body.classList.add(currentTheme);
+        refs.checkbox.setAttribute("checked", "checked");
     };
 };
 
